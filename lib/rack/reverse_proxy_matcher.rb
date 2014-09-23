@@ -24,7 +24,7 @@ module Rack
       return nil if url.nil?
       _url=(url.respond_to?(:call) ? url.call(env) : url.clone)
       if _url =~/\$\d/
-        match_path(path).to_a.each_with_index { |m, i| _url.gsub!("$#{i.to_s}", m) }
+        match_path(path).to_a.each_with_index { |m, i| _url.gsub!("$#{i.to_s}", m.to_s) }
         URI(_url)
       else
         default_url.nil? ? URI.parse(_url) : URI.join(_url, path)
